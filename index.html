@@ -1,111 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0e1020">
-<meta name="format-detection" content="telephone=no">
-<title>%APP_NAME%</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilt — Support</title>
+<style>
+  :root{color-scheme:light dark;--bg:#fff;--text:#1b1d2e;--muted:#5a5f80;--accent:#3b47c9}
+  @media (prefers-color-scheme: dark){:root{--bg:#0e1020;--text:#eef0ff;--muted:#a0a6d0;--accent:#ffd166}}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
+  main{max-width:680px;margin:0 auto;padding:32px 16px 64px} h1{font-size:28px;margin:0 0 8px} h2{font-size:19px;margin:24px 0 6px} a{color:var(--accent)}
+</style>
 </head>
 <body>
-<div id="title" aria-label="Loading">
-  <div class="t-logo"><div class="t-bob"><div class="t-board"><i></i><i></i><i></i><i></i><i></i><i></i><i class="yellow"></i><i></i><i class="cyan"></i><i class="yellow"></i><i class="yellow"></i><i class="orange"></i><i class="cyan"></i><i class="cyan"></i><i class="green"></i><i class="red"></i></div></div></div>
-  <div class="t-col">
-    <h1 class="t-word">%APP_NAME_UPPER%</h1>
-    <p class="t-tag">Place. Tilt. Chain.</p>
-    <div class="t-action">
-      <div class="t-bar" role="progressbar" aria-label="Loading"><i></i></div>
-      <button class="t-play" id="playBtn"><span>Play</span></button>
-    </div>
-    <p class="t-sub" id="titleSub"></p>
-  </div>
-</div>
-<div id="app">
-  <header>
-    <div class="stat"><span class="label">Score <b id="mult"></b></span><span id="score">0</span></div>
-    <div class="iconbtns">
-      <button class="iconbtn" id="pauseBtn" aria-label="Pause"><span class="pauseicon"></span></button>
-    </div>
-    <div class="stat r"><span class="label">Best</span><span id="best">0</span></div>
-  </header>
-  <div id="combo">COMBO x2</div>
-  <div id="frame">
-    <div id="board"><div id="bg"></div></div>
-    <div class="arrow up" data-dir="up"><span>▲</span></div>
-    <div class="arrow down" data-dir="down"><span>▼</span></div>
-    <div class="arrow left" data-dir="left"><span>◀</span></div>
-    <div class="arrow right" data-dir="right"><span>▶</span></div>
-  </div>
-  <div id="tray">
-    <div class="slot" data-i="0"></div><div class="slot" data-i="1"></div><div class="slot" data-i="2"></div>
-    <div id="tiltmsg"><div>SWIPE TO TILT<small>everything slides — then lines clear</small></div></div>
-  </div>
-</div>
-<div id="ghost"></div>
-<div id="fx"></div>
-<div id="safe"></div>
-<div id="toast" role="status" aria-live="polite"></div>
-
-<div class="overlay" id="help">
-  <div class="card">
-    <h1>%APP_NAME_UPPER%</h1>
-    <div class="rule"><b>1</b><div>Drag the 3 pieces onto the board. Fill a full <strong>row or column</strong> to clear it.</div></div>
-    <div class="rule"><b>2</b><div>After all 3 are placed, <strong>swipe to tilt</strong> the board. Each piece slides that way as one solid shape.</div></div>
-    <div class="rule"><b>3</b><div>Full lines clear — then everything slides again, and pieces that were held up can drop in. <strong>Chain</strong> clears for huge points.</div></div>
-    <div class="rule"><b>!</b><div>Game over when none of your pieces fit.</div></div>
-    <button class="btn" id="helpGo">Got it</button>
-  </div>
-</div>
-<div class="overlay" id="over">
-  <div class="card">
-    <h2>No room left</h2>
-    <div class="sub">SCORE</div>
-    <div class="big" id="finalScore">0</div>
-    <div class="newbest" id="newBest">★ NEW BEST ★</div>
-    <div class="sub" id="finalBest"></div>
-    <button class="btn" id="again">Play again</button>
-    <button class="linkbtn" id="overRemoveAds">Remove ads</button>
-  </div>
-</div>
-<div class="overlay" id="continue">
-  <div class="card">
-    <h2>Keep playing?</h2>
-    <p class="center">Watch a short ad to clear the 3 fullest rows and keep this game going.</p>
-    <button class="btn big" id="watchAd">▶ Watch ad: clear 3 rows</button>
-    <button class="linkbtn" id="noThanks">No thanks</button>
-  </div>
-</div>
-<div class="overlay" id="pause">
-  <div class="card">
-    <h2>Paused</h2>
-    <button class="btn" id="resumeBtn">Resume</button>
-    <button class="btn secondary" id="restartBtn">Restart</button>
-    <button class="btn secondary" id="settingsBtn">Settings</button>
-    <button class="btn secondary" id="howBtn">How to play</button>
-  </div>
-</div>
-<div class="overlay" id="settings">
-  <div class="card">
-    <h2>Settings</h2>
-    <label class="toggle"><span>Sound</span><input type="checkbox" id="optSound"><i></i></label>
-    <label class="toggle"><span>Haptics</span><input type="checkbox" id="optHaptics"><i></i></label>
-    <button class="btn secondary" id="removeAdsBtn">Remove ads</button>
-    <div class="owned" id="adsRemoved">✓ Ads removed. Thank you!</div>
-    <button class="btn secondary" id="restoreBtn">Restore purchases</button>
-    <button class="btn secondary" id="privacyBtn">Privacy choices</button>
-    <button class="btn danger" id="resetBestBtn">Reset best score</button>
-    <button class="btn" id="settingsBack">Done</button>
-  </div>
-</div>
-<div class="overlay" id="confirm">
-  <div class="card">
-    <h2 id="confirmTitle"></h2>
-    <p id="confirmText"></p>
-    <button class="btn danger" id="confirmYes"></button>
-    <button class="btn secondary" id="confirmNo">Cancel</button>
-  </div>
-</div>
-
-<script type="module" src="/src/main.js"></script>
+<main>
+<h1>Tilt</h1>
+<p>Place the pieces, tilt the board, and chain the clears.</p>
+<h2>Support</h2>
+<p>Questions, bugs or feedback: <strong>kaiweisung@gmail.com</strong></p>
+<h2>Restoring “Remove Ads”</h2>
+<p>On a new device or after reinstalling, open the game and tap <strong>Pause → Settings → Restore purchases</strong>.</p>
+<h2>Privacy</h2>
+<p><a href="privacy.html">Privacy Policy</a></p>
+</main>
 </body>
 </html>
